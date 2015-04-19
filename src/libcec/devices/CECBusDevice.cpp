@@ -1282,7 +1282,7 @@ bool CCECBusDevice::PowerOn(const cec_logical_address initiator)
 
   MarkBusy();
   cec_power_status currentStatus;
-  if (m_iLogicalAddress == CECDEVICE_TV ||
+  if ((m_iLogicalAddress == CECDEVICE_TV && !ImageViewOnSent()) ||
       ((currentStatus = GetPowerStatus(initiator, false)) != CEC_POWER_STATUS_IN_TRANSITION_STANDBY_TO_ON &&
         currentStatus != CEC_POWER_STATUS_ON))
   {
