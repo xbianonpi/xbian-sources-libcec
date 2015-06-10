@@ -358,12 +358,13 @@ bool CCECClient::AllocateLogicalAddresses(void)
     if (address == CECDEVICE_UNKNOWN)
     {
       LIB_CEC->AddLog(CEC_LOG_ERROR, "%s - failed to allocate device '%d', type '%s'", __FUNCTION__, iPtr, ToString(m_configuration.deviceTypes.types[iPtr]));
-      return false;
+      continue;
     }
 
     // display the registered LA
     LIB_CEC->AddLog(CEC_LOG_DEBUG, "%s - device '%d', type '%s', LA '%X'", __FUNCTION__, iPtr, ToString(m_configuration.deviceTypes.types[iPtr]), address);
     m_configuration.logicalAddresses.Set(address);
+    break;
   }
 
   SaveConfiguration(m_configuration);
