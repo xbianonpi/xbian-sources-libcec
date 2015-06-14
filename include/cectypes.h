@@ -325,7 +325,7 @@ namespace CEC {
  * Mimimum client version
  */
 #define CEC_MIN_LIB_VERSION          4
-=======
+
 #define CEC_LIB_VERSION_MAJOR        4
 
 #define MSGSTART                     0xFF
