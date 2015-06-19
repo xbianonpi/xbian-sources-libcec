@@ -1527,3 +1527,8 @@ bool CCECBusDevice::ActiveSourceSent(void) const
 {
   return m_bActiveSourceSent;
 }
+
+bool CCECBusDevice::TransmitSystemAudioModeRequest(const cec_logical_address initiator)
+{
+  return m_handler->TransmitSystemAudioModeRequest(initiator, m_iPhysicalAddress, false);
+}

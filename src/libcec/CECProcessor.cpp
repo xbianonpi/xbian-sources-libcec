@@ -732,6 +732,12 @@ bool CCECProcessor::TransmitPendingActiveSourceCommands(void)
   return bReturn;
 }
 
+bool CCECProcessor::TransmitSystemAudioModeRequest(cec_logical_address initiator)
+{
+  CCECBusDevice *device = m_busDevices->At(initiator);
+  return device && device->TransmitSystemAudioModeRequest(initiator);
+}
+
 CCECTV *CCECProcessor::GetTV(void) const
 {
   return CCECBusDevice::AsTV(m_busDevices->At(CECDEVICE_TV));

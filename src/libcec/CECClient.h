@@ -315,6 +315,7 @@ namespace CEC
     virtual bool                  IsLibCECActiveSource(void);
     bool                          AudioEnable(bool enable);
     bool                          GetStats(struct cec_adapter_stats* stats);
+    virtual bool                  TransmitSystemAudioModeRequest(void);
 
     // configuration
     virtual bool                  GetCurrentConfiguration(libcec_configuration &configuration);

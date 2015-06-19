@@ -149,6 +149,7 @@ namespace CEC
       bool GetDeviceInformation(const char *strPort, libcec_configuration *config, uint32_t iTimeoutMs = CEC_DEFAULT_CONNECT_TIMEOUT);
 
       bool TransmitPendingActiveSourceCommands(void);
+      bool TransmitSystemAudioModeRequest(cec_logical_address initiator);
 
       CCECDeviceMap *GetDevices(void) const { return m_busDevices; }
       CLibCEC *GetLib(void) const { return m_libcec; }

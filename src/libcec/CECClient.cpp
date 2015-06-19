@@ -1597,6 +1597,11 @@ bool CCECClient::IsLibCECActiveSource(void)
   return bReturn;
 }
 
+bool CCECClient::TransmitSystemAudioModeRequest(void)
+{
+  return m_processor ? m_processor->TransmitSystemAudioModeRequest(m_configuration.logicalAddresses.primary) : false;
+}
+
 void CCECClient::SourceActivated(const cec_logical_address logicalAddress)
 {
   LIB_CEC->AddLog(CEC_LOG_NOTICE, ">> source activated: %s (%x)", ToString(logicalAddress), logicalAddress);

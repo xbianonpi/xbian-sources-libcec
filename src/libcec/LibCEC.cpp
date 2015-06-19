@@ -655,3 +655,8 @@ bool CLibCEC::GetStats(struct cec_adapter_stats* stats)
       false;
 }
 #endif
+
+bool CLibCEC::TransmitSystemAudioModeRequest(void)
+{
+  return m_client ? m_client->TransmitSystemAudioModeRequest() : false;
+}

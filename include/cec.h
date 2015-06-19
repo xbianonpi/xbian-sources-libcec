@@ -419,6 +419,8 @@ namespace CEC
      */
     virtual uint16_t GetAdapterProductId(void) const = 0;
 
+    virtual bool TransmitSystemAudioModeRequest(void) = 0;
+
     virtual const char* ToString(const cec_menu_state state) = 0;
     virtual const char* ToString(const cec_version version) = 0;
     virtual const char* ToString(const cec_power_status status) = 0;
