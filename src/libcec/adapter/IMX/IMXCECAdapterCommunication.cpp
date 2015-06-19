@@ -355,7 +355,7 @@ void *CIMXCECAdapterCommunication::Process(void)
               delete m_PAReporter;
 
               m_PAReporter = new CCECPAChangedReporter(m_callback, m_physicalAddress);
-              m_PAReporter->CreateThread();
+              m_PAReporter->CreateThread(false);
             }
 #ifdef CEC_DEBUGGING
             LIB_CEC->AddLog(CEC_LOG_DEBUG, "%s: plugin event received", __func__);
