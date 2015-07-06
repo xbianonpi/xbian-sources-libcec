@@ -1285,7 +1285,7 @@ typedef struct cec_device_type_list
 typedef struct cec_logical_addresses
 {
   cec_logical_address primary;       /**< the primary logical address to use */
-  int                 addresses[16]; /**< the list of addresses */
+  uint16_t            addresses; /**< the list of addresses */
 
 #ifdef __cplusplus
   /*!
@@ -1294,8 +1294,7 @@ typedef struct cec_logical_addresses
   void Clear(void)
   {
     primary = CECDEVICE_UNREGISTERED;
-    for (unsigned int iPtr = 0; iPtr < 16; iPtr++)
-      addresses[iPtr] = 0;
+    addresses = 0;
   }
 
   /*!
@@ -1303,7 +1302,7 @@ typedef struct cec_logical_addresses
    */
   bool IsEmpty(void) const
   {
-    return primary == CECDEVICE_UNREGISTERED;
+    return primary == CECDEVICE_UNREGISTERED && addresses == 0;
   }
 
   /*!
@@ -1312,11 +1311,7 @@ typedef struct cec_logical_addresses
    */
   uint16_t AckMask(void) const
   {
-    uint16_t mask = 0;
-    for (unsigned int iPtr = 0; iPtr < 16; iPtr++)
-      if (addresses[iPtr] == 1)
-        mask |= 0x1 << iPtr;
-    return mask;
+    return addresses;
   }
 
   /*!
@@ -1328,7 +1323,7 @@ typedef struct cec_logical_addresses
     if (primary == CECDEVICE_UNREGISTERED)
       primary = address;
 
-    addresses[(int) address] = 1;
+    addresses |= (1 << (int) address);
   }
 
   /*!
@@ -1340,7 +1335,7 @@ typedef struct cec_logical_addresses
     if (primary == address)
       primary = CECDEVICE_UNREGISTERED;
 
-    addresses[(int) address] = 0;
+    addresses &= ~(uint16_t)(1 << (int) address);
   }
 
   /*!
@@ -1348,7 +1343,7 @@ typedef struct cec_logical_addresses
    * @param address The address to check.
    * @return True when set, false otherwise.
    */
-  bool IsSet(cec_logical_address address) const { return addresses[(int) address] == 1; }
+  bool IsSet(cec_logical_address address) const { return (addresses & (1 << (int) address)); }
 
   /*!
    * @brief Check whether an address is set in this list.
@@ -1357,18 +1352,9 @@ typedef struct cec_logical_addresses
    */
   bool operator[](uint8_t pos) const { return pos < 16 ? IsSet((cec_logical_address) pos) : false; }
 
-  bool operator==(const cec_logical_addresses &other) const
-  {
-    bool bEqual(true);
-    for (uint8_t iPtr = 0; iPtr < 16; iPtr++)
-      bEqual &= ((addresses[(int)iPtr] == 1) == other[iPtr]);
-    return bEqual;
-  }
+  bool operator==(const cec_logical_addresses &other) const { return addresses == other.addresses; }
 
-  bool operator!=(const cec_logical_addresses &other) const
-  {
-    return !(*this == other);
-  }
+  bool operator!=(const cec_logical_addresses &other) const { return !(*this == other); }
 #endif
 } cec_logical_addresses;
 
