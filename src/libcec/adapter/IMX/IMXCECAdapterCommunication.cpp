@@ -103,17 +103,12 @@ bool CIMXCECAdapterCommunication::Open(uint32_t iTimeoutMs, bool UNUSED(bSkipChe
 
 void CIMXCECAdapterCommunication::Close(void)
 {
-  StopThread(-1);
-  if (m_bInitialised)
+  m_bInitialised = false;
+  if (m_dev->Ioctl(HDMICEC_IOC_STOPDEVICE, NULL) != 0)
   {
-    m_bInitialised = false;
-    UnregisterLogicalAddress();
-
-    if (m_dev->Ioctl(HDMICEC_IOC_STOPDEVICE, NULL) != 0)
-    {
-      LIB_CEC->AddLog(CEC_LOG_ERROR, "%s: Unable to stop device\n", __func__);
-    }
+    LIB_CEC->AddLog(CEC_LOG_ERROR, "%s: Unable to stop device\n", __func__);
   }
+  StopThread(false);
   m_dev->Close();
 }
 
