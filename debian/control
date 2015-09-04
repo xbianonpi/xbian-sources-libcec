@@ -42,6 +42,7 @@ Description: libCEC communication Library (shared library)
 Package: cec-utils
 Architecture: any
 Section: utils
+Replaces: xbian-package-cec
 Depends: libcec4 (= ${binary:Version}),
          ${shlibs:Depends},
          ${misc:Depends}
@@ -62,6 +63,8 @@ Description: Python bindings for libCEC
 
 Package: libcec
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libcec4 (= ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcec4 (= ${binary:Version}), python-libcec, cec-utils, libcec-dev
+Provides: xbian-package-cec
+Breaks: xbian-package-cec (<<10.0)
 Description: Meta package libCEC.
 
