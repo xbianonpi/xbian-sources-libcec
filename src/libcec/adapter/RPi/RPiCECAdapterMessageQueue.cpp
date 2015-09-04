@@ -243,7 +243,6 @@ cec_adapter_message_state CRPiCECAdapterMessageQueue::Write(const cec_command &c
       bRetry = true;
       LIB_CEC->AddLog(CEC_LOG_DEBUG, "command '%s' timeout", CCECTypeUtils::ToString(command.opcode));
       CEvent::Sleep(CEC_DEFAULT_TRANSMIT_RETRY_WAIT);
-      bReturn = ADAPTER_MESSAGE_STATE_WAITING_TO_BE_SENT;
     }
 
     vcReply = (VC_CEC_ERROR_T)entry->Result();

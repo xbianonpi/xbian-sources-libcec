@@ -166,7 +166,6 @@ cec_adapter_message_state CIMXCECAdapterCommunication::Write(
     }
     else
     {
-      rc = ADAPTER_MESSAGE_STATE_WAITING_TO_BE_SENT;
 #ifdef CEC_DEBUGGING
       LIB_CEC->AddLog(CEC_LOG_DEBUG, "%s: command timed out !", __func__);
 #endif
