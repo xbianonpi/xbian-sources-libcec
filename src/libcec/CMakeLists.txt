@@ -64,7 +64,8 @@ set(CEC_SOURCES_IMPLEMENTATIONS implementations/ANCommandHandler.cpp
                                 implementations/RLCommandHandler.cpp
                                 implementations/PHCommandHandler.cpp
                                 implementations/RHCommandHandler.cpp
-                                implementations/AQCommandHandler.cpp)
+                                implementations/AQCommandHandler.cpp
+                                implementations/GRCommandHandler.cpp)
 
 # /platform/*
 set(CEC_SOURCES_PLATFORM platform/adl/adl-edid.cpp
@@ -130,6 +131,7 @@ set(CEC_HEADERS devices/CECRecordingDevice.h
                 implementations/RHCommandHandler.h
                 implementations/PHCommandHandler.h
                 implementations/AQCommandHandler.h
+                implementations/GRCommandHandler.h
                 CECProcessor.h)
 source_group("Header Files" FILES ${CEC_HEADERS})
 
