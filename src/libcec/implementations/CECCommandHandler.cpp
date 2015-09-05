@@ -62,6 +62,7 @@ CCECCommandHandler::CCECCommandHandler(CCECBusDevice *busDevice,
     m_iTransmitRetries(iTransmitRetries),
     m_bHandlerInited(false),
     m_bOPTSendDeckStatusUpdateOnActiveSource(false),
+    m_bOPTSendMenuStatusUpdateOnActiveSource(true),
     m_vendorId(CEC_VENDOR_UNKNOWN),
     m_iActiveSourcePending(iActiveSourcePending),
     m_iPowerStatusRequested(0)
@@ -1331,7 +1332,7 @@ bool CCECCommandHandler::ActivateSource(bool bTransmitDelayedCommandsOnly /* = f
     if (!bActiveSourceFailed && bSourceSwitchAllowed)
     {
       bActiveSourceFailed = !m_busDevice->TransmitActiveSource(false);
-      if (bTvPresent && !bActiveSourceFailed)
+      if (bTvPresent && !bActiveSourceFailed && SendMenuStatusUpdateOnActiveSource())
         m_busDevice->TransmitMenuState(CECDEVICE_TV, false);
 
       // update the deck status for playback devices
