@@ -5,6 +5,12 @@ set(LIBCEC_VERSION_MAJOR 7)
 set(LIBCEC_VERSION_MINOR 0)
 set(LIBCEC_VERSION_PATCH 0)
 
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+endif(CCACHE_FOUND)
+
 # cec-client
 add_subdirectory(src/cec-client)
 add_dependencies(cec-client cec)
