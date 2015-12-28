@@ -29,11 +29,11 @@
 
 #if defined(HAVE_IMX_API)
 
-#include "platform/threads/mutex.h"
-#include "platform/threads/threads.h"
-#include "platform/sockets/socket.h"
-#include "adapter/IMX/mxc_hdmi-cec.h"
 #include "adapter/AdapterCommunication.h"
+#include <p8-platform/threads/mutex.h>
+#include <p8-platform/threads/threads.h>
+#include <p8-platform/sockets/socket.h>
+#include "adapter/IMX/mxc_hdmi-cec.h"
 #include <map>
 
 #define IMX_ADAPTER_VID 0x0471 /*FIXME TBD*/
@@ -46,7 +46,7 @@ typedef struct hdmi_cec_event{
 }hdmi_cec_event;
 
 
-namespace PLATFORM
+namespace P8PLATFORM
 {
   class CCDevSocket;
 };
@@ -55,7 +55,7 @@ namespace CEC
 {
   class CIMXCECAdapterMessageQueueEntry;
 
-  class CCECPAChangedReporter : public PLATFORM::CThread
+  class CCECPAChangedReporter : public P8PLATFORM::CThread
   {
   public:
     CCECPAChangedReporter(IAdapterCommunicationCallback *callback, uint16_t newPA);
@@ -66,7 +66,7 @@ namespace CEC
     uint16_t                       m_newPA;
   };
 
-  class CIMXCECAdapterCommunication : public IAdapterCommunication, public PLATFORM::CThread
+  class CIMXCECAdapterCommunication : public IAdapterCommunication, public P8PLATFORM::CThread
   {
   public:
     /*!
@@ -121,10 +121,10 @@ namespace CEC
     cec_logical_address         m_logicalAddress;
     uint16_t                    m_physicalAddress;
 
-    PLATFORM::CMutex            m_mutex;
-    PLATFORM::CCDevSocket       *m_dev;	/**< the device connection */
+    P8PLATFORM::CMutex            m_mutex;
+    P8PLATFORM::CCDevSocket       *m_dev;	/**< the device connection */
     
-    PLATFORM::CMutex            m_messageMutex;
+    P8PLATFORM::CMutex            m_messageMutex;
     uint32_t                    m_iNextMessage;
     std::map<uint32_t, CIMXCECAdapterMessageQueueEntry *> m_messages;
 

@@ -33,13 +33,13 @@
 
 #include "CECTypeUtils.h"
 #include "LibCEC.h"
-#include "platform/sockets/cdevsocket.h"
-#include "platform/util/StdString.h"
-#include "platform/util/util.h"
+#include <p8-platform/sockets/cdevsocket.h>
+#include <p8-platform/util/StdString.h>
+#include <p8-platform/util/util.h>
 
 using namespace std;
 using namespace CEC;
-using namespace PLATFORM;
+using namespace P8PLATFORM;
 
 #include "IMXCECAdapterMessageQueue.h"
 
