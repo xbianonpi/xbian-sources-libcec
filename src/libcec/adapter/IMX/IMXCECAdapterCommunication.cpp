@@ -339,8 +339,10 @@ void *CIMXCECAdapterCommunication::Process(void)
         {
             /* HDMI Hotplug event - disconnect */
         }
-        else if (event.event_type == MESSAGE_TYPE_CONNECTED && m_physicalAddress != 0xffff)
+        else if (event.event_type == MESSAGE_TYPE_CONNECTED)
         {
+            if (m_physicalAddress == 0xffff)
+              continue;
             /* HDMI Hotplug event - connect */
             uint16_t oldAddress = m_physicalAddress;
 
