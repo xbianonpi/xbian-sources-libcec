@@ -58,8 +58,7 @@ CGRCommandHandler::CGRCommandHandler(CCECBusDevice *busDevice,
 
   /* Grundig devices return "" as language */
   cec_menu_language lang;
-  lang.device = m_busDevice->GetLogicalAddress();
-  snprintf(lang.language, 4, "eng");
+  snprintf(lang, 4, "eng");
   m_busDevice->SetMenuLanguage(lang);
 }
 
