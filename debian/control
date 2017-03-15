@@ -17,7 +17,7 @@ Homepage: http://libcec.pulse-eight.com/
 Vcs-Git: git://anonscm.debian.org/collab-maint/libcec.git
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/libcec.git
 
-Package: libcec4-dev
+Package: libcec-dev
 Architecture: any
 Section: libdevel
 Replaces: libcec-dev
@@ -65,7 +65,7 @@ Description: Python bindings for libCEC
 
 Package: libcec
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libcec4 (= ${binary:Version}), python-libcec, cec-utils, libcec4-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcec4 (= ${binary:Version}), python-libcec, cec-utils, libcec-dev
 Provides: xbian-package-cec
 Breaks: xbian-package-cec (<<10.0)
 Description: Meta package libCEC.
