@@ -48,6 +48,9 @@ bool CRPiCECAdapterDetection::FindAdapter(void)
 {
   uint8_t iResult;
 
+  if (access(CEC_LINUX_PATH, 0) == 0)
+    return false;
+
   VCHI_INSTANCE_T vchiq_instance;
   if ((iResult = vchi_initialise(&vchiq_instance)) != VCHIQ_SUCCESS)
     return false;
