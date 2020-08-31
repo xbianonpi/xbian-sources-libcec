@@ -64,7 +64,7 @@ Description: Python bindings for libCEC
 
 Package: libcec
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libcec5 (= ${binary:Version}), python-libcec, cec-utils, libcec-dev
+Depends: ${shlibs:Depends}, ${misc:Depends}, libcec6 (= ${binary:Version}), python-libcec, cec-utils, libcec-dev
 Provides: xbian-package-cec
 Breaks: xbian-package-cec (<<10.0)
 Description: Meta package libCEC.
