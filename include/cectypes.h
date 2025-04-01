@@ -326,7 +326,7 @@ namespace CEC {
  */
 #define CEC_MIN_LIB_VERSION          4
 
-#define CEC_LIB_VERSION_MAJOR        6
+#define CEC_LIB_VERSION_MAJOR        7
 
 #define MSGSTART                     0xFF
 #define MSGEND                       0xFE
@@ -881,7 +881,7 @@ typedef enum cec_vendor_id
   CEC_VENDOR_LG             = 0x00E091,
   CEC_VENDOR_SHARP          = 0x08001F,
   CEC_VENDOR_SONY           = 0x080046,
-  CEC_VENDOR_TEUFEL         = 0x232425;
+  CEC_VENDOR_TEUFEL         = 0x232425,
   CEC_VENDOR_BROADCOM       = 0x18C086,
   CEC_VENDOR_SHARP2         = 0x534850,
   CEC_VENDOR_VIZIO          = 0x6B746D,
