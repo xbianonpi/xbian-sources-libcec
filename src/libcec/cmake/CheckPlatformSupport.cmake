@@ -110,6 +110,19 @@ else()
     endif()
   endif()
 
+  # iMX6
+  if (HAVE_IMX_API)
+    set(LIB_INFO "${LIB_INFO}, iMX6")
+    set(HAVE_IMX_API 1)
+    set(CEC_SOURCES_ADAPTER_IMX adapter/IMX/IMXCECAdapterDetection.cpp
+                                adapter/IMX/IMXCECAdapterCommunication.cpp)
+    source_group("Source Files\\adapter\\iMX6" FILES ${CEC_SOURCES_ADAPTER_IMX})
+    list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_IMX})
+    set(HAVE_RPI_API 0)
+  else()
+    set(HAVE_IMX_API 0)
+  endif()
+
   # raspberry pi
   if (HAVE_RPI_API)
     find_library(RPI_BCM_HOST bcm_host "${RPI_LIB_DIR}")
@@ -173,14 +186,6 @@ else()
     list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_AOCEC})
   endif()
 
-  # iMX6
-  if (HAVE_IMX_API)
-    set(LIB_INFO "${LIB_INFO}, iMX6")
-    set(CEC_SOURCES_ADAPTER_IMX adapter/IMX/IMXCECAdapterDetection.cpp
-                                adapter/IMX/IMXCECAdapterCommunication.cpp)
-    source_group("Source Files\\adapter\\iMX6" FILES ${CEC_SOURCES_ADAPTER_IMX})
-    list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_IMX})
-  endif()
 endif()
 
 # rt

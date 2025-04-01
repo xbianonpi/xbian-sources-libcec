@@ -29,11 +29,11 @@
 
 #if defined(HAVE_IMX_API)
 
-#include "lib/platform/threads/mutex.h"
-#include "lib/platform/threads/threads.h"
-#include "lib/platform/sockets/socket.h"
-#include "lib/adapter/IMX/mxc_hdmi-cec.h"
-#include "lib/adapter/AdapterCommunication.h"
+#include "platform/threads/mutex.h"
+#include "platform/threads/threads.h"
+#include "platform/sockets/socket.h"
+#include "adapter/IMX/mxc_hdmi-cec.h"
+#include "adapter/AdapterCommunication.h"
 #include <map>
 
 #define IMX_ADAPTER_VID 0x0471 /*FIXME TBD*/

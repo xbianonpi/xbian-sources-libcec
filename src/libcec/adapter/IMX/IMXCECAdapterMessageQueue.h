@@ -31,7 +31,7 @@
  *     http://www.pulse-eight.net/
  */
 
-#include "lib/platform/threads/mutex.h"
+#include "platform/threads/mutex.h"
 
 namespace CEC
 {

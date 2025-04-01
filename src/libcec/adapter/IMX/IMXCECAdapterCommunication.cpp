@@ -31,10 +31,10 @@
 #if defined(HAVE_IMX_API)
 #include "IMXCECAdapterCommunication.h"
 
-#include "lib/CECTypeUtils.h"
-#include "lib/LibCEC.h"
-#include "lib/platform/sockets/cdevsocket.h"
-#include "lib/platform/util/StdString.h"
+#include "CECTypeUtils.h"
+#include "LibCEC.h"
+#include "platform/sockets/cdevsocket.h"
+#include "platform/util/StdString.h"
 #include "platform/util/util.h"
 
 using namespace std;
@@ -72,7 +72,7 @@ CIMXCECAdapterCommunication::CIMXCECAdapterCommunication(IAdapterCommunicationCa
 CIMXCECAdapterCommunication::~CIMXCECAdapterCommunication(void)
 {
   Close();
-  DELETE_AND_NULL(m_PAReporter);
+  SAFE_DELETE(m_PAReporter);
   delete m_dev;
   m_dev = 0;
 }
