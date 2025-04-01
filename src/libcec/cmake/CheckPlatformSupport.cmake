@@ -171,11 +171,12 @@ else()
     list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_AOCEC})
   endif()
 
-  # i.MX6
+  # iMX6
   if (HAVE_IMX_API)
-    set(CEC_SOURCES_ADAPTER_IMX adapter/IMX/IMXCECAdapterCommunication.cpp
-                                adapter/IMX/IMXCECAdapterDetection.cpp)
-    source_group("Source Files\\adapter\\IMX" FILES ${CEC_SOURCES_ADAPTER_IMX})
+    set(LIB_INFO "${LIB_INFO}, iMX6")
+    set(CEC_SOURCES_ADAPTER_IMX adapter/IMX/IMXCECAdapterDetection.cpp
+                                adapter/IMX/IMXCECAdapterCommunication.cpp)
+    source_group("Source Files\\adapter\\iMX6" FILES ${CEC_SOURCES_ADAPTER_IMX})
     list(APPEND CEC_SOURCES ${CEC_SOURCES_ADAPTER_IMX})
   endif()
 endif()
