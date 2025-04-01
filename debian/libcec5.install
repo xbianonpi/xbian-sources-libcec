@@ -1,1 +1,2 @@
 usr/lib/*/libcec.so.*
+usr/lib/libp*.a

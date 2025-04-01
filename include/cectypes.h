@@ -326,7 +326,7 @@ namespace CEC {
  */
 #define CEC_MIN_LIB_VERSION          4
 
-#define CEC_LIB_VERSION_MAJOR        4
+#define CEC_LIB_VERSION_MAJOR        5
 
 #define MSGSTART                     0xFF
 #define MSGEND                       0xFE
