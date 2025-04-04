@@ -121,6 +121,9 @@ else()
     set(HAVE_RPI_API 0)
   else()
     set(HAVE_IMX_API 0)
+    if (NOT DEFINED HAVE_RPI_API)
+       set(HAVE_RPI_API 1)
+    endif()
   endif()
 
   # raspberry pi
