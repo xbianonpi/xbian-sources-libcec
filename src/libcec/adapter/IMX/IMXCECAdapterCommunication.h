@@ -8,7 +8,8 @@
  * libCEC(R) is a trademark of Pulse-Eight Limited.
  *
  * IMX adpater port is Copyright (C) 2013 by Stephan Rafin
- *
+ *                     Copyright (C) 2014 by Matus Kral
+ * 
  * You can redistribute this file and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -28,26 +29,44 @@
 
 #if defined(HAVE_IMX_API)
 
-#include "p8-platform/threads/mutex.h"
-#include "p8-platform/threads/threads.h"
-#include "p8-platform/sockets/socket.h"
-#include "adapter/AdapterCommunication.h"
+#include "lib/platform/threads/mutex.h"
+#include "lib/platform/threads/threads.h"
+#include "lib/platform/sockets/socket.h"
+#include "lib/adapter/IMX/mxc_hdmi-cec.h"
+#include "lib/adapter/AdapterCommunication.h"
 #include <map>
 
 #define IMX_ADAPTER_VID 0x0471 /*FIXME TBD*/
 #define IMX_ADAPTER_PID 0x1001
 
+typedef struct hdmi_cec_event{
+  uint8_t event_type;
+  uint8_t msg_len;
+  uint8_t msg[MAX_MESSAGE_LEN];
+}hdmi_cec_event;
 
 
-namespace P8PLATFORM
+namespace PLATFORM
 {
   class CCDevSocket;
 };
 
-
 namespace CEC
 {
-  class CIMXCECAdapterCommunication : public IAdapterCommunication, public P8PLATFORM::CThread
+  class CIMXCECAdapterMessageQueueEntry;
+
+  class CCECPAChangedReporter : public PLATFORM::CThread
+  {
+  public:
+    CCECPAChangedReporter(IAdapterCommunicationCallback *callback, uint16_t newPA);
+    void* Process(void);
+
+  private:
+    IAdapterCommunicationCallback *m_callback;
+    uint16_t                       m_newPA;
+  };
+
+  class CIMXCECAdapterCommunication : public IAdapterCommunication, public PLATFORM::CThread
   {
   public:
     /*!
@@ -68,52 +87,53 @@ namespace CEC
     bool SetLineTimeout(uint8_t UNUSED(iTimeout)) { return true; }
     bool StartBootloader(void) { return false; }
     bool SetLogicalAddresses(const cec_logical_addresses &addresses);
-    cec_logical_addresses GetLogicalAddresses(void) const;
+    cec_logical_addresses GetLogicalAddresses(void);
     bool PingAdapter(void) { return IsInitialised(); }
     uint16_t GetFirmwareVersion(void);
     uint32_t GetFirmwareBuildDate(void) { return 0; }
     bool IsRunningLatestFirmware(void) { return true; }
     bool SaveConfiguration(const libcec_configuration & UNUSED(configuration)) { return false; }
     bool GetConfiguration(libcec_configuration & UNUSED(configuration)) { return false; }
-    bool SetAutoMode(bool UNUSED(automode)) { return false; }
     std::string GetPortName(void) { return std::string("IMX"); }
     uint16_t GetPhysicalAddress(void);
     bool SetControlledMode(bool UNUSED(controlled)) { return true; }
     cec_vendor_id GetVendorId(void);
+    void HandleLogicalAddressLost(cec_logical_address UNUSED(oldAddress));
     bool SupportsSourceLogicalAddress(const cec_logical_address address) { return address > CECDEVICE_TV && address <= CECDEVICE_BROADCAST; }
     cec_adapter_type GetAdapterType(void) { return ADAPTERTYPE_IMX; }
     uint16_t GetAdapterVendorId(void) const { return IMX_ADAPTER_VID; }
     uint16_t GetAdapterProductId(void) const { return IMX_ADAPTER_PID; }
-    void HandleLogicalAddressLost(cec_logical_address UNUSED(oldAddress));
     void SetActiveSource(bool UNUSED(bSetTo), bool UNUSED(bClientUnregistered)) {}
-#if CEC_LIB_VERSION_MAJOR >= 5
-    bool GetStats(struct cec_adapter_stats* UNUSED(stats)) { return false; }
-#endif
     ///}
 
-    /** @name P8PLATFORM::CThread implementation */
+    /** @name PLATFORM::CThread implementation */
     ///{
     void *Process(void);
     ///}
 
   private:
-    bool IsInitialised(void) const { return m_bInitialised; };
-    bool UnregisterLogicalAddress(void);
+    bool IsInitialised(void) { return m_bInitialised; };
     bool RegisterLogicalAddress(const cec_logical_address address);
+    bool UnregisterLogicalAddress(void);
 
     std::string                 m_strError; /**< current error message */
 
     cec_logical_address         m_logicalAddress;
+    uint16_t                    m_physicalAddress;
 
-    mutable P8PLATFORM::CMutex  m_mutex;
-    P8PLATFORM::CCDevSocket     *m_dev;	/**< the device connection */
+    PLATFORM::CMutex            m_mutex;
+    PLATFORM::CCDevSocket       *m_dev;	/**< the device connection */
+    
+    PLATFORM::CMutex            m_messageMutex;
+    uint32_t                    m_iNextMessage;
+    std::map<uint32_t, CIMXCECAdapterMessageQueueEntry *> m_messages;
+
     bool                        m_bLogicalAddressRegistered;
     bool                        m_bInitialised;
 
-    P8PLATFORM::CMutex          m_messageMutex;
-    uint32_t                    m_iNextMessage;
+    CCECPAChangedReporter       *m_PAReporter;
   };
-
+  
 };
 
 #endif

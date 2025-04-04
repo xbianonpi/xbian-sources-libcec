@@ -5,9 +5,9 @@
  * libCEC(R) is an original work, containing original code.
  *
  * libCEC(R) is a trademark of Pulse-Eight Limited.
- *
+ * 
  * IMX adpater port is Copyright (C) 2013 by Stephan Rafin
- *
+ * 
  * You can redistribute this file and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
